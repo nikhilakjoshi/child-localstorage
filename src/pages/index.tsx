@@ -36,7 +36,7 @@ export default function Home() {
         <nav className="bg-green-100 px-20 py-2">
           <span className="text-xl font-semibold">Child App</span>
         </nav>
-        <div className="">
+        <div className="px-20 py-4">
           {token ? (
             <span className="font-mono text-xl text-gray-700">{token}</span>
           ) : null}
