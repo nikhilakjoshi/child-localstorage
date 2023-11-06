@@ -2,13 +2,14 @@ import Head from "next/head";
 import Link from "next/link";
 import clsx from "clsx";
 import { Rubik } from "next/font/google";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const font = Rubik({
   subsets: ["latin-ext"],
 });
 
 export default function Home() {
+  const [token, setToken] = useState<string | null>(null);
   const receiveMessage = useCallback((event: MessageEvent) => {
     if (
       event.origin !== "http://localhost:3000" &&
@@ -16,11 +17,14 @@ export default function Home() {
     )
       return;
     localStorage.setItem("token", event.data as string);
+    setToken(event.data as string);
   }, []);
+
   useEffect(() => {
     window.addEventListener("message", receiveMessage, false);
     return () => window.removeEventListener("message", receiveMessage);
   }, []);
+
   return (
     <>
       <Head>
@@ -32,6 +36,11 @@ export default function Home() {
         <nav className="bg-green-100 px-20 py-2">
           <span className="text-xl font-semibold">Child App</span>
         </nav>
+        <div className="">
+          {token ? (
+            <span className="font-mono text-xl text-gray-700">{token}</span>
+          ) : null}
+        </div>
       </main>
     </>
   );
