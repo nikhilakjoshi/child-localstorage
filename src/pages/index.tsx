@@ -15,7 +15,7 @@ export default function Home() {
       event.origin !== "https://parent-localstorage.vercel.app"
     )
       return;
-    localStorage.setItem("token", event.data);
+    localStorage.setItem("token", event.data as string);
   }, []);
   useEffect(() => {
     window.addEventListener("message", receiveMessage, false);
